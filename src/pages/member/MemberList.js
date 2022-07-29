@@ -11,32 +11,32 @@ import {db} from '../../firebase'
 
 import {collection, query, orderBy, onSnapshot} from "firebase/firestore"
 
-const TaskList = () => {
+const MemberList = () => {
     let navigate = useNavigate();
     const dispatch = useDispatch();
-    const [tasks ,setTasks] = useState();
+    const [members ,setMembers] = useState();
     const taskCollectionRef = collection(db,'tasks')
 
     useEffect(()=>{
 
         try{
-            const getTasks = async () => {
-                const q = query(collection(db, 'tasks'))
+            const getMembers = async () => {
+                const q = query(collection(db, 'members'))
                 onSnapshot(q, (querySnapshot) => {
-                  setTasks(querySnapshot.docs.map(doc => ({
+                    setMembers(querySnapshot.docs.map(doc => ({
                     id: doc.id,
                     data: doc.data()
                   })))
                 })
             }
-            getTasks()
+            getMembers()
         }catch(error){
             console.log(error)
         }
        
     },[])
 
-    const addTask = () => {
+    const addMember = () => {
         navigate('/task/create',{replace: true})
     }
 
@@ -50,28 +50,28 @@ const TaskList = () => {
   return (
     <Default>
         <div className='page'>
-        <Button style={{float:'right',marginBottom: '10px',marginTop: '10px',marginRight: '20px'}} type='button' onClick={addTask}>Add New Task</Button>
+        <Button style={{float:'right',marginBottom: '10px',marginTop: '10px',marginRight: '20px'}} type='button' onClick={addMember}>Add New Member</Button>
 
-            <h2> Task List</h2>
+            <h2> Member List</h2>
             <div style={{marginLeft:'20px',marginRight: '20px'}}>
                 <Table striped bordered hover>
                     <thead>
                         <tr>
                             <th>Id</th>
-                            <th>Title</th>
-                            <th>Description</th>
+                            <th>Name</th>
+                            <th>Email</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
-                           tasks && tasks.map((task)=>{
+                           members && members.map((member)=>{
                                return <tr>
-                                    <td>{task.id}</td>
-                                    <td onClick={()=> getTaskDetail(task)} style={{cursor : 'pointer'}}>
-                                        {task.data.title}
+                                    <td>{member.id}</td>
+                                    <td onClick={()=> getTaskDetail(member)} style={{cursor : 'pointer'}}>
+                                        {member.data.name}
                                     </td>
                                     
-                                    <td>{task.data.description}</td>
+                                    <td>{member.data.email}</td>
                                 </tr>
                             })
                         }
@@ -85,4 +85,4 @@ const TaskList = () => {
   )
 }
 
-export default TaskList
+export default MemberList
