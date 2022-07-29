@@ -4,7 +4,7 @@ import Default from '../../layout/Default'
 import { useNavigate } from 'react-router-dom'
 import Table from 'react-bootstrap/Table';
 import { Button } from 'react-bootstrap'
-import {setTaskDetail} from '../../reducer/taskSlice' 
+import {setMemberDetail} from '../../reducer/taskSlice' 
 import {useSelector,useDispatch} from 'react-redux';
 
 import {db} from '../../firebase'
@@ -40,12 +40,12 @@ const MemberList = () => {
         navigate('/member/create',{replace: true})
     }
 
-    const getTaskDetail = (task) =>{
-        dispatch(setTaskDetail({
-            data : task
+    const getMemberDetail = (member) =>{
+        dispatch(setMemberDetail({
+            data : member
         }))
 
-        navigate(`/task/${task.id}`,{replace: true})
+        navigate(`/member/${member.id}`,{replace: true})
     }
   return (
     <Default>
@@ -67,7 +67,7 @@ const MemberList = () => {
                            members && members.map((member)=>{
                                return <tr>
                                     <td>{member.id}</td>
-                                    <td onClick={()=> getTaskDetail(member)} style={{cursor : 'pointer'}}>
+                                    <td onClick={()=> getMemberDetail(member)} style={{cursor : 'pointer'}}>
                                         {member.data.name}
                                     </td>
                                     

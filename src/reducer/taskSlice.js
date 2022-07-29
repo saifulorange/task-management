@@ -18,10 +18,18 @@ const taskSlice = createSlice({
     setTaskAll : (state,action) =>{
         state.taskList = action.payload.data
     },
+
+    setMemberDetail: (state,action) =>{
+      state.memberDetail = action.payload.data
+  },
+
+  setMemberAll : (state,action) =>{
+      state.memberList = action.payload.data
+  },
   }
 });
 
-export const {setTaskDetail, setTaskAll} = taskSlice.actions
+export const {setTaskDetail, setTaskAll,setMemberDetail,setMemberAll} = taskSlice.actions
 
 export const taskInfo = (state) => state.task;
 

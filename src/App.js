@@ -3,6 +3,7 @@ import Default from './layout/Default';
 import TaskList from './pages/task/TaskList';
 import MemberList from './pages/member/MemberList';
 import MemberAdd from './pages/member/MemberAdd';
+import MemberDetail from './pages/member/MemberDetail';
 import TaskAdd from './pages/task/TaskAdd';
 import TaskDetail from './pages/task/TaskDetail';
 import TaskEdit from './pages/task/TaskEdit';
@@ -36,7 +37,7 @@ function App() {
                 <Route path='/members' element={ <PrivateRoutes> <MemberList /> </PrivateRoutes>}/>
 
                 <Route path='/member/create' element={ <PrivateRoutes> <MemberAdd /> </PrivateRoutes>}/>
-                <Route path='/member/:id' element={ <PrivateRoutes> <TaskDetail /> </PrivateRoutes>}/>
+                <Route path='/member/:id' element={ <PrivateRoutes> <MemberDetail /> </PrivateRoutes>}/>
                 <Route path='/member/edit/:id' element={ <PrivateRoutes> <TaskEdit /> </PrivateRoutes>}/>
 
                 // Login
