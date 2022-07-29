@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState ,useEffect} from 'react'
 import Default from '../../layout/Default'
 import { Form, Button } from 'react-bootstrap'
 import {db} from '../../firebase'
-import {collection, addDoc ,Timestamp} from 'firebase/firestore'
+import {collection, addDoc ,Timestamp,query,orderBy,onSnapshot} from 'firebase/firestore'
 import { useNavigate } from 'react-router-dom'
 
 const TaskAdd = () => {
@@ -23,8 +23,28 @@ const TaskAdd = () => {
         description : '',
         assign_to : ''
     });
+    const [members ,setMembers] = useState();
 
     const [error,setError] = useState({});
+
+    useEffect(()=>{
+
+        try{
+            const getMembers = async () => {
+                const q = query(collection(db, 'members'))
+                onSnapshot(q, (querySnapshot) => {
+                    setMembers(querySnapshot.docs.map(doc => ({
+                    id: doc.id,
+                    data: doc.data()
+                  })))
+                })
+            }
+            getMembers()
+        }catch(error){
+            console.log(error)
+        }
+       
+    },[])
 
     const handleChange = (e) => {
         e.preventDefault();
@@ -92,10 +112,14 @@ const TaskAdd = () => {
                     </Form.Group>
 
                     <Form.Select aria-label="Assign To member" name='assign_to' onChange={handleChange}>
-                        <option>Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                         <option disabled>Assign member</option>
+                        {
+                           members && members.map((member)=>{
+                                return <>
+                                 <option value={member.id}>{member.data.name}</option>
+                                </>
+                            })
+                        }
                     </Form.Select>
 
                     <Button style={{float:'right',marginTop: '10px'}} type='button' onClick={submitTask}>Submit</Button>
