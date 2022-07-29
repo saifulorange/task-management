@@ -8,7 +8,6 @@ import TaskEdit from './pages/task/TaskEdit';
 import Login from './pages/login/Login';
 import Registration from './pages/registration/Registration';
 import {BrowserRouter, Routes,Route} from 'react-router-dom'
-import 'bootstrap/dist/css/bootstrap.min.css'
 import PublicRoutes from './PublicRoutes';
 import PrivateRoutes from './PrivateRoutes';
 
