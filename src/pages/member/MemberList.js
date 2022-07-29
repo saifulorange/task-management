@@ -37,7 +37,7 @@ const MemberList = () => {
     },[])
 
     const addMember = () => {
-        navigate('/task/create',{replace: true})
+        navigate('/member/create',{replace: true})
     }
 
     const getTaskDetail = (task) =>{

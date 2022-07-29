@@ -18,35 +18,33 @@ const MemberAdd = () => {
         borderRadius : '5px'
     }
 
-    const [taskForm,setTaskForm] = useState({
-        title : '',
-        description : '',
-        assign_to : ''
+    const [memberForm,setMemberForm] = useState({
+        name : '',
+        email : '',
     });
 
     const [error,setError] = useState({});
 
     const handleChange = (e) => {
         e.preventDefault();
-        setTaskForm({
-            ...taskForm,
+        setMemberForm({
+            ...memberForm,
             [e.target.name] : e.target.value
         })
     }
 
-    const submitTask = async (e) => {
+    const submitMember = async (e) => {
         e.preventDefault();
         if(validatonCheck()){
 
             try {
-                await addDoc(collection(db, 'tasks'), {
-                  title: taskForm.title,
-                  description: taskForm.description,
-                  assign_to : taskForm.assign_to,
+                await addDoc(collection(db, 'members'), {
+                  name: memberForm.name,
+                  email: memberForm.email,
                   created: Timestamp.now()
                 })
 
-                navigate('/tasks',{replace: true})
+                navigate('/members',{replace: true})
               } catch (err) {
                 alert(err)
               }
@@ -55,8 +53,8 @@ const MemberAdd = () => {
 
     const validatonCheck = () => {
         let error = {};
-        for(let key in taskForm){
-            if(key == 'title' && taskForm[key] ==''){
+        for(let key in memberForm){
+            if(key == 'title' && memberForm[key] ==''){
               error[key] = 'required'
             }
         }
@@ -78,27 +76,20 @@ const MemberAdd = () => {
                 <Form>
                     <Form.Group className="mb-3">
                         {/* <Form.Label>Title: </Form.Label> */}
-                        <Form.Control  name='title' onChange={handleChange} type="text" placeholder='please enter task title' />
+                        <Form.Control  name='name' onChange={handleChange} type="text" placeholder='please enter name' />
                         {
-                            Object.keys(error).length !=0 && error['title'] != '' && 
+                            Object.keys(error).length !=0 && error['name'] != '' && 
                             <p style={{color: 'red'}}>please requird this field</p>
 
                         }
                     </Form.Group>
 
-                    <Form.Group controlId="form.Textarea" className="mb-3">
+                    <Form.Group  className="mb-3">
                         {/* <Form.Label>Description : </Form.Label> */}
-                        <Form.Control name='description' onChange={handleChange} as="textarea" rows={3} />
+                        <Form.Control name='email' onChange={handleChange}  type="email" placeholder='please enter email' />
                     </Form.Group>
 
-                    <Form.Select aria-label="Assign To member" name='assign_to' onChange={handleChange}>
-                        <option>Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </Form.Select>
-
-                    <Button style={{float:'right',marginTop: '10px'}} type='button' onClick={submitTask}>Submit</Button>
+                    <Button style={{float:'right',marginTop: '10px'}} type='button' onClick={submitMember}>Submit</Button>
 
                 </Form>
             </div>
