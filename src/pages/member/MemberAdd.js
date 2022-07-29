@@ -54,7 +54,7 @@ const MemberAdd = () => {
     const validatonCheck = () => {
         let error = {};
         for(let key in memberForm){
-            if(key == 'title' && memberForm[key] ==''){
+            if(key == 'name' && memberForm[key] ==''){
               error[key] = 'required'
             }
         }

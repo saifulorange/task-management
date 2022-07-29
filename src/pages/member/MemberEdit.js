@@ -1,16 +1,15 @@
 import React, { useState } from 'react'
 import Default from '../../layout/Default'
 import { Form, Button } from 'react-bootstrap'
-import {useSelector,useDispatch} from 'react-redux';
 import {db} from '../../firebase'
 import { doc, updateDoc ,Timestamp} from "firebase/firestore";
-import {taskInfo} from '../../reducer/taskSlice'
 import { useNavigate } from 'react-router-dom'
+import {useSelector,useDispatch} from 'react-redux';
+import {taskInfo} from '../../reducer/taskSlice'
 
-
-
-const TaskEdit = () => {
+const MemberEdit = () => {
     let navigate = useNavigate();
+    const editMember = useSelector(taskInfo)
     let addFormDesign = {
         height:'400px',
         width:'400px', 
@@ -21,50 +20,46 @@ const TaskEdit = () => {
         padding: '20px',
         borderRadius : '5px'
     }
-    const editTask = useSelector(taskInfo)
 
-    const [taskForm,setTaskForm] = useState({
-        id : editTask.taskDetail.id,
-        title : editTask.taskDetail.data.title,
-        description : editTask.taskDetail.data.title,
-        assign_to : editTask.taskDetail.data.assign_to
+    const [memberForm,setMemberForm] = useState({
+        id : editMember.memberDetail.id,
+        name : editMember.memberDetail.data.name,
+        email : editMember.memberDetail.data.email,
     });
 
     const [error,setError] = useState({});
 
     const handleChange = (e) => {
         e.preventDefault();
-        setTaskForm({
-            ...taskForm,
+        setMemberForm({
+            ...memberForm,
             [e.target.name] : e.target.value
         })
     }
 
-    const submitTask = async (e) => {
+    const submitMember = async (e) => {
         e.preventDefault();
         if(validatonCheck()){
 
-            const taskDocRef = doc(db, 'tasks', taskForm.id)
+            const memberDocRef = doc(db, 'members', memberForm.id)
             try{
-              await updateDoc(taskDocRef, {
-                title: taskForm.title,
-                description: taskForm.description,
-                assign_to : taskForm.assign_to
+              await updateDoc(memberDocRef, {
+                name: memberForm.name,
+                email: memberForm.email,
               })
 
-              navigate('/tasks',{replace: true})
+              navigate('/members',{replace: true})
 
             } catch (err) {
               console.log(err)
             } 
-
         }
     }
 
     const validatonCheck = () => {
         let error = {};
-        for(let key in taskForm){
-            if(key == 'title' && taskForm[key] ==''){
+        for(let key in memberForm){
+            if(key == 'name' && memberForm[key] ==''){
               error[key] = 'required'
             }
         }
@@ -86,27 +81,20 @@ const TaskEdit = () => {
                 <Form>
                     <Form.Group className="mb-3">
                         {/* <Form.Label>Title: </Form.Label> */}
-                        <Form.Control value={taskForm.title}  name='title' onChange={handleChange} type="text" placeholder='please enter task title' />
+                        <Form.Control value={memberForm.name}  name='name' onChange={handleChange} type="text" placeholder='please enter name' />
                         {
-                            Object.keys(error).length !=0 && error['title'] != '' && 
+                            Object.keys(error).length !=0 && error['name'] != '' && 
                             <p style={{color: 'red'}}>please requird this field</p>
 
                         }
                     </Form.Group>
 
-                    <Form.Group controlId="form.Textarea" className="mb-3">
+                    <Form.Group  className="mb-3">
                         {/* <Form.Label>Description : </Form.Label> */}
-                        <Form.Control value={taskForm.description} name='description' onChange={handleChange} as="textarea" rows={3} />
+                        <Form.Control value={memberForm.email} name='email' onChange={handleChange}  type="email" placeholder='please enter email' />
                     </Form.Group>
 
-                    <Form.Select value={taskForm.assign_to} aria-label="Assign To member" name='assign_to' onChange={handleChange}>
-                        <option>Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </Form.Select>
-
-                    <Button style={{float:'right',marginTop: '10px'}} type='button' onClick={submitTask}>Update</Button>
+                    <Button style={{float:'right',marginTop: '10px'}} type='button' onClick={submitMember}>Submit</Button>
 
                 </Form>
             </div>
@@ -117,4 +105,4 @@ const TaskEdit = () => {
   )
 }
 
-export default TaskEdit
+export default MemberEdit

@@ -3,6 +3,7 @@ import Default from './layout/Default';
 import TaskList from './pages/task/TaskList';
 import MemberList from './pages/member/MemberList';
 import MemberAdd from './pages/member/MemberAdd';
+import MemberEdit from './pages/member/MemberEdit';
 import MemberDetail from './pages/member/MemberDetail';
 import TaskAdd from './pages/task/TaskAdd';
 import TaskDetail from './pages/task/TaskDetail';
@@ -38,7 +39,7 @@ function App() {
 
                 <Route path='/member/create' element={ <PrivateRoutes> <MemberAdd /> </PrivateRoutes>}/>
                 <Route path='/member/:id' element={ <PrivateRoutes> <MemberDetail /> </PrivateRoutes>}/>
-                <Route path='/member/edit/:id' element={ <PrivateRoutes> <TaskEdit /> </PrivateRoutes>}/>
+                <Route path='/member/edit/:id' element={ <PrivateRoutes> <MemberEdit /> </PrivateRoutes>}/>
 
                 // Login
                 {/* <PublicRoutes  path="/login" element={ <Login />} /> */}
