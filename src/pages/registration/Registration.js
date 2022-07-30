@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import { createUserWithEmailAndPassword, getAuth} from "firebase/auth";
 import '../../firebase'
-
+import { checkEmailValidation } from '../../Utils/Utils';
 import {setActiveUser,selectUserName} from '../../reducer/userSlice'
 import {useSelector,useDispatch} from 'react-redux';
 import { useNavigate } from 'react-router-dom'
@@ -19,6 +19,8 @@ const Registration = () => {
 
     const [error,setError] = useState({});
 
+    const [validationText ,setValidationText] = useState(null)
+
     let registrationPageDesign = {
         height:'200px',
         width:'400px', 
@@ -32,6 +34,18 @@ const Registration = () => {
 
     const handleChange = (e) => {
         e.preventDefault();
+
+        if(e.target.name == 'email')
+        {
+           let isValid = checkEmailValidation(e.target.value);
+           if(!isValid){
+             setValidationText("please enter valid email")
+           }else{
+             setValidationText(null)
+           }
+           
+        }
+
         setRegistrationForm({
             ...registrationForm,
             [e.target.name] : e.target.value
@@ -40,7 +54,7 @@ const Registration = () => {
 
     const registrationData = async(e) => {
         e.preventDefault();
-        if(validatonCheck()){
+        if(!(validationText) && validatonCheck()){
             const auth = getAuth();
             await createUserWithEmailAndPassword(auth, registrationForm.email, registrationForm.password);
             const user = auth.currentUser;
@@ -94,6 +108,10 @@ const Registration = () => {
                             Object.keys(error).length !=0 && error['email'] != '' && 
                             <p style={{color: 'red'}}>please enter email</p>
 
+                        }
+                        {
+                            validationText !=null &&
+                            <p style={{color: 'red'}}>please enter valid email</p>
                         }
                     </Form.Group>
 

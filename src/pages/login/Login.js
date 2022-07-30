@@ -5,6 +5,7 @@ import '../../firebase'
 import {setActiveUser} from '../../reducer/userSlice'
 import {useSelector,useDispatch} from 'react-redux';
 import { useNavigate } from 'react-router-dom'
+import { checkEmailValidation } from '../../Utils/Utils';
 
 const Login = () => {
     let navigate = useNavigate();
@@ -15,6 +16,7 @@ const Login = () => {
     });
 
     const [error,setError] = useState({});
+    const [validationText ,setValidationText] = useState(null)
 
     let loginPageDesign = {
         height:'200px',
@@ -29,6 +31,18 @@ const Login = () => {
 
     const handleChange = (e) => {
         e.preventDefault();
+
+        if(e.target.name == 'email')
+        {
+           let isValid = checkEmailValidation(e.target.value);
+           if(!isValid){
+             setValidationText("please enter valid email")
+           }else{
+             setValidationText(null)
+           }
+           
+        }
+
         setLoginForm({
             ...loginForm,
             [e.target.name] : e.target.value
@@ -37,7 +51,7 @@ const Login = () => {
 
     const loginData = (e) => {
         e.preventDefault();
-        if(validatonCheck()){
+        if(!(validationText) && validatonCheck()){
             const auth = getAuth();
              signInWithEmailAndPassword(auth, loginForm.email, loginForm.password)
              .then((result)=>{
@@ -80,17 +94,20 @@ const Login = () => {
             <div style={loginPageDesign}>
                 <Form>
                     <Form.Group className="mb-3">
-                        {/* <Form.Label>Title: </Form.Label> */}
                         <Form.Control value={loginForm.email} name='email' onChange={handleChange} type="text" placeholder='please enter email' />
                         {
                             Object.keys(error).length !=0 && error['email'] != '' && 
                             <p style={{color: 'red'}}>please enter email</p>
 
                         }
+
+                        {
+                            validationText !=null &&
+                            <p style={{color: 'red'}}>please enter valid email</p>
+                        }
                     </Form.Group>
 
                     <Form.Group className="mb-3">
-                        {/* <Form.Label>Title: </Form.Label> */}
                         <Form.Control value={loginForm.password}  name='password' onChange={handleChange} type="password" placeholder='please enter password' />
                         {
                             Object.keys(error).length !=0 && error['password'] != '' && 
