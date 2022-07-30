@@ -19,34 +19,27 @@ function App() {
     <>
         <BrowserRouter>
             <Routes>
-               
-                {/* <PrivateRoutes  path='/' element={ <Default />} /> */}
+              // Dashboard
                 <Route path='/' element={ <PrivateRoutes> <Default /> </PrivateRoutes>}/>
                 // Task
-                {/* <PrivateRoutes  path='/tasks' element={ <TaskList />} /> */}
 
                 <Route path='/tasks' element={ <PrivateRoutes> <TaskList /> </PrivateRoutes>}/>
-                {/* <PrivateRoutes  path='/task/create' element={ <TaskAdd />} /> */}
-                {/* <Route path='/task/create' element={ <TaskAdd />}/> */}
-
                 <Route path='/task/create' element={ <PrivateRoutes> <TaskAdd /> </PrivateRoutes>}/>
                 <Route path='/task/:id' element={ <PrivateRoutes> <TaskDetail /> </PrivateRoutes>}/>
                 <Route path='/task/edit/:id' element={ <PrivateRoutes> <TaskEdit /> </PrivateRoutes>}/>
 
-                // Member
-                {/* <PrivateRoutes  path='/members' element={ <MemberList />} /> */}
-                <Route path='/members' element={ <PrivateRoutes> <MemberList /> </PrivateRoutes>}/>
+                // member
 
+                <Route path='/members' element={ <PrivateRoutes> <MemberList /> </PrivateRoutes>}/>
                 <Route path='/member/create' element={ <PrivateRoutes> <MemberAdd /> </PrivateRoutes>}/>
                 <Route path='/member/:id' element={ <PrivateRoutes> <MemberDetail /> </PrivateRoutes>}/>
                 <Route path='/member/edit/:id' element={ <PrivateRoutes> <MemberEdit /> </PrivateRoutes>}/>
 
-                // Login
-                {/* <PublicRoutes  path="/login" element={ <Login />} /> */}
+                // login
+
                 <Route path='/login'  element={ <PublicRoutes> <Login /> </PublicRoutes>}/>
 
                 // Registration
-                 {/* <PublicRoutes  path="/registration" element={ <Registration />} /> */}
                 <Route path='/registration' element={ <PublicRoutes> <Registration /> </PublicRoutes>}/>
 
             </Routes>

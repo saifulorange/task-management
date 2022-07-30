@@ -1,15 +1,7 @@
 import React, { useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
-import {
-    createUserWithEmailAndPassword,
-    getAuth,
-    onAuthStateChanged,
-    signInWithEmailAndPassword,
-    signOut,
-    updateProfile,
-  } from "firebase/auth";
+import {getAuth, signInWithEmailAndPassword} from "firebase/auth";
 import '../../firebase'
-
 import {setActiveUser} from '../../reducer/userSlice'
 import {useSelector,useDispatch} from 'react-redux';
 import { useNavigate } from 'react-router-dom'
@@ -18,7 +10,7 @@ const Login = () => {
     let navigate = useNavigate();
     const dispatch = useDispatch();
     const [loginForm,setLoginForm] = useState({
-        username : '',
+        email : '',
         password : '',
     });
 
@@ -47,7 +39,7 @@ const Login = () => {
         e.preventDefault();
         if(validatonCheck()){
             const auth = getAuth();
-             signInWithEmailAndPassword(auth, loginForm.username, loginForm.password)
+             signInWithEmailAndPassword(auth, loginForm.email, loginForm.password)
              .then((result)=>{
                 dispatch(setActiveUser({
                 userName : result.user.displayName,
@@ -85,10 +77,10 @@ const Login = () => {
                 <Form>
                     <Form.Group className="mb-3">
                         {/* <Form.Label>Title: </Form.Label> */}
-                        <Form.Control value={loginForm.username} name='username' onChange={handleChange} type="text" placeholder='please enter username' />
+                        <Form.Control value={loginForm.email} name='email' onChange={handleChange} type="text" placeholder='please enter email' />
                         {
-                            Object.keys(error).length !=0 && error['username'] != '' && 
-                            <p style={{color: 'red'}}>please enter username</p>
+                            Object.keys(error).length !=0 && error['email'] != '' && 
+                            <p style={{color: 'red'}}>please enter email</p>
 
                         }
                     </Form.Group>
