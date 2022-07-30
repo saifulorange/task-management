@@ -70,6 +70,10 @@ const Login = () => {
             return true
         }
     }
+
+    const navigateRegister = () => {
+        navigate('/registration',{replace:true})
+    }
     
   return (
     <div className='page'>
@@ -95,7 +99,8 @@ const Login = () => {
                         }
                     </Form.Group>
 
-                    <Button style={{float:'right',marginTop: '10px'}} type='button' onClick={loginData}>Submit</Button>
+                    <Button style={{float:'right',marginTop: '10px'}} type='button' onClick={loginData}>Login</Button>
+                    <Button style={{float:'right',marginTop: '10px'}} type='button' onClick={navigateRegister}>Registration</Button>
 
                 </Form>
             </div>

@@ -52,7 +52,7 @@ const TaskList = () => {
         <div className='page'>
         <Button style={{float:'right',marginBottom: '10px',marginTop: '10px',marginRight: '20px'}} type='button' onClick={addTask}>Add New Task</Button>
 
-            <h2> Task List</h2>
+            <h2 style={{fontSize:'20px',marginTop:'20px'}}> Task List</h2>
             <div style={{marginLeft:'20px',marginRight: '20px'}}>
                 <Table striped bordered hover>
                     <thead>

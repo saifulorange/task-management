@@ -52,7 +52,7 @@ const MemberList = () => {
         <div className='page'>
         <Button style={{float:'right',marginBottom: '10px',marginTop: '10px',marginRight: '20px'}} type='button' onClick={addMember}>Add New Member</Button>
 
-            <h2> Member List</h2>
+            <h2 style={{fontSize:'20px',marginTop:'20px'}}> Member List</h2>
             <div style={{marginLeft:'20px',marginRight: '20px'}}>
                 <Table striped bordered hover>
                     <thead>

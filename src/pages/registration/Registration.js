@@ -1,13 +1,6 @@
 import React, { useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
-import {
-    createUserWithEmailAndPassword,
-    getAuth,
-    onAuthStateChanged,
-    signInWithEmailAndPassword,
-    signOut,
-    updateProfile,
-  } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth} from "firebase/auth";
 import '../../firebase'
 
 import {setActiveUser,selectUserName} from '../../reducer/userSlice'
@@ -114,7 +107,7 @@ const Registration = () => {
                         }
                     </Form.Group>
 
-                    <Button style={{float:'right',marginTop: '10px'}} type='button' onClick={registrationData}>Submit</Button>
+                    <Button style={{float:'right',marginTop: '10px'}} type='button' onClick={registrationData}>Registration</Button>
 
                 </Form>
             </div>
