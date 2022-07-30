@@ -36,7 +36,7 @@ function App() {
                 <Route path='/member/edit/:id' element={ <PrivateRoutes> <MemberEdit /> </PrivateRoutes>}/>
 
                 // login
-                
+              
                 <Route path='/login'  element={ <PublicRoutes> <Login /> </PublicRoutes>}/>
 
                 // Registration
