@@ -59,7 +59,7 @@ const TaskList = () => {
                         <tr>
                             <th>Id</th>
                             <th>Title</th>
-                            <th>Description</th>
+                            <th>Assign People</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -71,7 +71,7 @@ const TaskList = () => {
                                         {task.data.title}
                                     </td>
                                     
-                                    <td>{task.data.description}</td>
+                                    <td>{task.data.assign_to}</td>
                                 </tr>
                             })
                         }
