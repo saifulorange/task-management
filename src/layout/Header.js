@@ -23,7 +23,7 @@ const Header = () => {
             getToken() ? <>
                  <div className='logo'>
                     <Link to='/'>
-                        Task Management App
+                         <img src="/taskLogo/taskLogo.png"/>
                     </Link>
                 </div>
                 <ul>

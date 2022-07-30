@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import './App.css';
 import Default from './layout/Default';
 import TaskList from './pages/task/TaskList';
@@ -15,6 +16,12 @@ import PublicRoutes from './PublicRoutes';
 import PrivateRoutes from './PrivateRoutes';
 
 function App() {
+
+  useEffect(() => {
+    document.title = "Task management"
+ }, []);
+
+
   return (
     <>
         <BrowserRouter>
