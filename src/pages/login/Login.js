@@ -5,7 +5,7 @@ import '../../firebase'
 import {setActiveUser} from '../../reducer/userSlice'
 import {useSelector,useDispatch} from 'react-redux';
 import { useNavigate } from 'react-router-dom'
-import { checkEmailValidation } from '../../Utils/Utils';
+import { checkEmailValidation ,setTokenLocalStorage} from '../../Utils/Utils';
 
 const Login = () => {
     let navigate = useNavigate();
@@ -55,6 +55,7 @@ const Login = () => {
             const auth = getAuth();
              signInWithEmailAndPassword(auth, loginForm.email, loginForm.password)
              .then((result)=>{
+                setTokenLocalStorage(result.user.refreshToken);
                 dispatch(setActiveUser({
                 userName : result.user.displayName,
                 userEmail : result.user.email,

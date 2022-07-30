@@ -1,45 +1,26 @@
-import React ,{useEffect, useState} from 'react'
 import { Link } from 'react-router-dom'
-import {useSelector,useDispatch} from 'react-redux';
-import { auth,provider } from '../firebase';
+import { auth } from '../firebase';
 import { useNavigate } from 'react-router-dom'
-
-import {setActiveUser,setUserLogoutState,selectUserName,selectUserEmail} from '../reducer/userSlice'
+import { getToken ,clearToken} from '../Utils/Utils';
 
 const Header = () => {
     let navigate = useNavigate();
-    const dispatch = useDispatch();
-    const userName = useSelector(selectUserName)
-    const userEmail = useSelector(selectUserEmail)
-    const [userInfo , setUserInfo] = useState(userEmail);
-
-    useEffect(()=>{
-        setUserInfo(userEmail)
-    },[userEmail])
 
     const handleLogin = () => {
         navigate('/login',{replace: true})
-        // auth.signInWithPopup(provider).then((result)=>{
-        //     dispatch(setActiveUser({
-        //         userName : result.user.displayName,
-        //         userEmail : result.user.email,
-        //     }))
-        // })
     }
 
     const handleLogout = () => {
         auth.signOut().then(()=>{
-            dispatch(setUserLogoutState())
-            navigate('/login',{replace: true})
+            clearToken();
+           navigate('/login',{replace: true})
         })
     }
-
-    console.log(userEmail,'user name')
 
   return (
     <div className='navbar'>
         {
-            userInfo !=null ? <>
+            getToken() ? <>
                  <div className='logo'>
                     <Link to='/'>
                         Task Management App
