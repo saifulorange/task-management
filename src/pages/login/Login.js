@@ -118,12 +118,12 @@ const Login = () => {
                     </Form.Group>
 
                     <Button style={{float:'right',marginTop: '10px'}} type='button' onClick={loginData}>Login</Button>
-                    <Button style={{float:'right',marginTop: '10px'}} type='button' onClick={navigateRegister}>Registration</Button>
+                    <Button style={{float:'left',marginTop: '10px'}} type='button' onClick={navigateRegister}>Registration ?</Button>
 
                 </Form>
             </div>
    
-</div>
+    </div>
   )
 }
 
